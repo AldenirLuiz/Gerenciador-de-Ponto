@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (validateCredentials(username, password)) {
             sessionStorage.setItem('loggedInUser', username);
-            window.location.href = 'index.html';
+            window.location.href = 'src/index.html';
         } else {
             errorMessage.textContent = 'Invalid username or password. Please try again.';
         }
