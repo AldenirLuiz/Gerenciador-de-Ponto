@@ -1,0 +1,149 @@
+/* Reset básico */
+body, h1, h2, h3, p, ul, li, table, th, td, input, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo geral */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Estilo do cabeçalho */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Estilo dos logos */
+.logo {
+    height: 100px;
+    width: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo das seções */
+main {
+    margin-top: 20px;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #007bff;
+}
+
+/* Estilo das tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo dos formulários */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    table, form input, form select, form button {
+        font-size: 12px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+}

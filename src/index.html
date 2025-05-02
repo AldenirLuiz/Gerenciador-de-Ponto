@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta NOME="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Time Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="images/logo-right.png" alt="Left Logo" class="logo">
+            <h1>Staff Time Management</h1>
+            <img src="images/logo-left.png" alt="Right Logo" class="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="manage-employees.html">Manage Employees</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <section id="daily-attendance">
+            <h2>Daily Attendance</h2>
+            <form id="attendance-form">
+                <label for="employee-select">Select Employee:</label>
+                <select id="employee-select">
+                    <!-- Employee options will be dynamically inserted here -->
+                </select>
+                <label for="attendance-status">Status:</label>
+                <select id="attendance-status">
+                    <option value="present">PRESENTE</option>
+                    <option value="absent">FALTA</option>
+                </select>
+                <label for="morning-entry">Entrada Manhã:</label>
+                <input type="time" id="morning-entry" value="06:30">
+                <label for="morning-exit">Saida Manha:</label>
+                <input type="time" id="morning-exit" value="11:30">
+                <label for="afternoon-entry">Entrada Tarde:</label>
+                <input type="time" id="afternoon-entry" value="13:00">
+                <label for="afternoon-exit">Saida Tarde:</label>
+                <input type="time" id="afternoon-exit" value="17:00">
+                <button type="submit">REGISTRAR</button>
+            </form>
+        </section>
+        <section id="attendance-history">
+            <h2>Attendance History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NOME</th>
+                        <th>DATA</th>
+                        <th>ENTRADA MANHÃ</th>
+                        <th>SAIDA MANHÃ</th>
+                        <th>ENTRADA TARDE</th>
+                        <th>SAIDA TARDE</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Attendance history will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+        <section id="employee-summary">
+            <h2>Employee Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NOME</th>
+                        <th>Total Hours Worked</th>
+                        <th>Total Days Present</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Summary data will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>
