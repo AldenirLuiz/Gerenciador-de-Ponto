@@ -19,25 +19,26 @@ header {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
-    text-align: center;
+    text-align: left;
     border-radius: 5px;
 }
 
 .header-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 header h1 {
     font-size: 24px;
+    padding: 20px 20px;
     margin: 0;
-    flex-grow: 1;
-    text-align: center;
+    text-align: left;
 }
 
 /* Estilo dos logos */
 .logo {
+    align-self: right;
     height: 100px;
     width: auto;
 }
@@ -45,7 +46,7 @@ header h1 {
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap: 15px;
     margin-top: 10px;
 }
