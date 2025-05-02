@@ -14,6 +14,56 @@ body {
     padding: 20px;
 }
 
+.logoLogin {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 400px;
+    height: auto;
+}
+#logoLogin {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 400px;
+    height: auto;
+}
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+#loginForm input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#loginForm button {
+    width: 300px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#loginForm button:hover {
+    background-color: #0056b3;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 /* Estilo do cabeçalho */
 header {
     background-color: #007bff;
