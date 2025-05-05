@@ -383,14 +383,6 @@ localStorage.setItem('employees', JSON.stringify([
         "attendance": [
             {
                 "date": "2025-05-05",
-                "morningEntry": "06:30",
-                "morningExit": "11:30",
-                "afternoonEntry": "13:00",
-                "afternoonExit": "17:00",
-                "status": "present"
-            },
-            {
-                "date": "2025-05-05",
                 "morningEntry": "N/A",
                 "morningExit": "N/A",
                 "afternoonEntry": "N/A",
@@ -517,11 +509,11 @@ localStorage.setItem('employees', JSON.stringify([
         "attendance": [
             {
                 "date": "2025-05-05",
-                "morningEntry": "06:30",
-                "morningExit": "11:30",
-                "afternoonEntry": "13:00",
-                "afternoonExit": "17:00",
-                "status": "present"
+                "morningEntry": "N/A",
+                "morningExit": "N/A",
+                "afternoonEntry": "N/A",
+                "afternoonExit": "N/A",
+                "status": "absent"
             }
         ]
     }
