@@ -156,6 +156,17 @@ table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
+table tfoot {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+table tfoot td {
+    border-top: 2px solid #007bff;
+    padding: 10px;
+    text-align: left;
+}
+
 /* Estilo dos formulários */
 form label {
     display: block;
@@ -184,6 +195,21 @@ form button:hover {
     background-color: #0056b3;
 }
 
+#attendance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#attendance-form label {
+    font-weight: bold;
+}
+
+#attendance-form input, #attendance-form select, #attendance-form button {
+    padding: 5px;
+    font-size: 1rem;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     body {
@@ -197,4 +223,31 @@ form button:hover {
     header h1 {
         font-size: 20px;
     }
+}
+
+#filter-hours {
+    margin-top: 20px;
+}
+
+#filter-hours select, #filter-hours button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+#hours-result table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#hours-result th, #hours-result td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#hours-result tfoot {
+    background-color: #f1f1f1;
+    font-weight: bold;
 }
