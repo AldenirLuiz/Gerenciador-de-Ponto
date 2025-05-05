@@ -1,4 +1,4 @@
-localStorage.setItem('employees', JSON.stringify([
+const newEmployees = [
     {
         "name": "ALDENIR LUIZ (GAMBIARRA)",
         "position": "TÉCNICO",
@@ -517,6 +517,18 @@ localStorage.setItem('employees', JSON.stringify([
             }
         ]
     }
-]));
+];
 
-const employees = JSON.parse(localStorage.getItem('employees')) || [];
+// Obtém os dados existentes no localStorage
+const existingEmployees = JSON.parse(localStorage.getItem('employees')) || [];
+
+// Verifica e adiciona apenas os novos dados
+newEmployees.forEach(newEmployee => {
+    const exists = existingEmployees.some(existingEmployee => existingEmployee.name === newEmployee.name);
+    if (!exists) {
+        existingEmployees.push(newEmployee);
+    }
+});
+
+// Salva os dados atualizados no localStorage
+localStorage.setItem('employees', JSON.stringify(existingEmployees));
