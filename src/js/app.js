@@ -43,8 +43,8 @@ function populateEmployeeDropdown() {
     // Adiciona cada funcionário como uma opção no dropdown
     employeeList.forEach((employee, index) => {
         const option = document.createElement('option');
-        option.value = index;
-        option.textContent = employee.name;
+        option.value = index; // Usa o índice como valor
+        option.textContent = employee.name; // Exibe o nome do funcionário
         employeeSelect.appendChild(option);
     });
 }
@@ -70,7 +70,8 @@ function loadAttendanceHistory() {
                     <td>${record.morningExit || 'N/A'}</td>
                     <td>${record.afternoonEntry || 'N/A'}</td>
                     <td>${record.afternoonExit || 'N/A'}</td>
-                    <td>${record.status || 'N/A'}</td>
+                    <td>${record.morningStatus || 'N/A'}</td>
+                    <td>${record.afternoonStatus || 'N/A'}</td>
                 `;
 
                 tbody.appendChild(row);
@@ -82,40 +83,62 @@ function loadAttendanceHistory() {
 // Função para lidar com o registro de ponto
 function handleAttendance(event) {
     event.preventDefault();
-    const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
-    const attendanceDate = document.getElementById('attendance-date').value; // Obtém a data selecionada
-    const employeeIndex = document.getElementById('employee-select-daily').value;
-    const attendanceStatus = document.getElementById('attendance-status').value;
-    const morningEntry = document.getElementById('morning-entry').value;
-    const morningExit = document.getElementById('morning-exit').value;
-    const afternoonEntry = document.getElementById('afternoon-entry').value;
-    const afternoonExit = document.getElementById('afternoon-exit').value;
 
-    if (employeeIndex !== '' && employeeList[employeeIndex]) {
-        const employee = employeeList[employeeIndex];
+    const attendanceDateInput = document.getElementById('attendance-date');
+    const employeeSelect = document.getElementById('employee-select-daily');
+    const morningEntry = document.getElementById('morning-entry');
+    const morningExit = document.getElementById('morning-exit');
+    const afternoonEntry = document.getElementById('afternoon-entry');
+    const afternoonExit = document.getElementById('afternoon-exit');
+    const morningStatus = document.getElementById('morning-status');
+    const afternoonStatus = document.getElementById('afternoon-status');
 
-        // Adiciona o registro de ponto ao histórico
-        employee.attendance.push({
-            date: attendanceDate, // Já está no formato YYYY-MM-DD vindo do input[type="date"]
-            morningEntry: morningEntry || 'N/A',
-            morningExit: morningExit || 'N/A',
-            afternoonEntry: afternoonEntry || 'N/A',
-            afternoonExit: afternoonExit || 'N/A',
-            status: attendanceStatus
-        });
-
-        localStorage.setItem('employees', JSON.stringify(employeeList));
-        loadAttendanceHistory();
-        loadEmployeeSummary(); // Atualiza o resumo após registrar o ponto
-        alert('Attendance recorded successfully!');
-    } else {
-        alert('Please select a valid employee.');
+    if (!attendanceDateInput || !employeeSelect || !morningEntry || !morningExit || !afternoonEntry || !afternoonExit || !morningStatus || !afternoonStatus) {
+        console.error('Um ou mais elementos necessários não foram encontrados no DOM.');
+        return;
     }
+
+    const attendanceDate = attendanceDateInput.value;
+    const employeeIndex = employeeSelect.value;
+
+    if (employeeIndex === '') {
+        alert('Por favor, selecione um funcionário válido.');
+        return;
+    }
+
+    const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
+    const employee = employeeList[employeeIndex];
+    if (!employee) {
+        alert('Funcionário não encontrado.');
+        return;
+    }
+
+    if (!employee.attendance) {
+        employee.attendance = [];
+    }
+
+    employee.attendance.push({
+        date: attendanceDate,
+        morningEntry: morningEntry.value || 'N/A',
+        morningExit: morningExit.value || 'N/A',
+        afternoonEntry: afternoonEntry.value || 'N/A',
+        afternoonExit: afternoonExit.value || 'N/A',
+        morningStatus: morningStatus.value || 'N/A',
+        afternoonStatus: afternoonStatus.value || 'N/A'
+    });
+
+    localStorage.setItem('employees', JSON.stringify(employeeList));
+
+    // Atualiza apenas os dados necessários
+    loadAttendanceHistory();
+    loadEmployeeSummary();
+
+    alert('Ponto registrado com sucesso!');
 }
 
 // Função para habilitar ou desabilitar os campos de horário com base no status
 function toggleTimeFields() {
-    const attendanceStatus = document.getElementById('attendance-status').value;
+    //const attendanceStatus = document.getElementById('attendance-status').value;
     const timeFields = [
         document.getElementById('morning-entry'),
         document.getElementById('morning-exit'),
@@ -123,15 +146,48 @@ function toggleTimeFields() {
         document.getElementById('afternoon-exit')
     ];
 
-    if (attendanceStatus === 'absent') {
-        // Desabilita e limpa os campos de horário
-        timeFields.forEach(field => {
+    
+}
+
+// Função para habilitar ou desabilitar os campos de horário com base no status da manhã
+function toggleMorningFields() {
+    const morningStatus = document.getElementById('morning-status').value;
+    const morningFields = [
+        document.getElementById('morning-entry'),
+        document.getElementById('morning-exit')
+    ];
+
+    if (morningStatus === 'absent') {
+        // Desabilita e limpa os campos de horário da manhã
+        morningFields.forEach(field => {
             field.value = ''; // Limpa o valor
             field.disabled = true; // Desabilita o campo
         });
     } else {
-        // Habilita os campos de horário
-        timeFields.forEach(field => {
+        // Habilita os campos de horário da manhã
+        morningFields.forEach(field => {
+            field.disabled = false; // Habilita o campo
+        });
+    }
+}
+
+// Função para habilitar ou desabilitar os campos de horário com base no status da tarde
+function toggleAfternoonFields() {
+    const afternoonStatus = document.getElementById('afternoon-status').value;
+    const afternoonFields = [
+        document.getElementById('afternoon-entry'),
+        document.getElementById('afternoon-exit')
+    ];
+
+    if (afternoonStatus === 'absent') {
+        // Desabilita e limpa os campos de horário da tarde
+        afternoonFields.forEach(field => {
+            field.value = ''; // Limpa o valor
+            field.disabled = true; // Desabilita o campo
+        });
+    } else {
+        // Habilita os campos de horário da tarde
+        afternoonFields.forEach(field => {
             field.disabled = false; // Habilita o campo
         });
     }
@@ -407,7 +463,7 @@ function saveFilteredReport() {
 
     // Cria os dados para o relatório
     const data = [];
-    data.push(['Nome', 'Data', 'Entrada Manhã', 'Saída Manhã', 'Entrada Tarde', 'Saída Tarde', 'Status']); // Cabeçalho
+    data.push(['Nome', 'Data', 'Entrada', 'Saída', 'Entrada', 'Saída', 'Status']); // Cabeçalho
 
     rows.forEach(row => {
         const cells = row.querySelectorAll('td');
@@ -509,10 +565,10 @@ function openFilteredReport() {
                     <tr>
                         <th>NOME</th>
                         <th>DATA</th>
-                        <th>ENTRADA MANHÃ</th>
-                        <th>SAÍDA MANHÃ</th>
-                        <th>ENTRADA TARDE</th>
-                        <th>SAÍDA TARDE</th>
+                        <th>ENTRADA</th>
+                        <th>SAÍDA</th>
+                        <th>ENTRADA</th>
+                        <th>SAÍDA</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -531,162 +587,138 @@ function openFilteredReport() {
     newWindow.document.close();
 }
 
-// Adiciona o evento de mudança ao campo de status
-document.getElementById('attendance-status').addEventListener('change', toggleTimeFields);
+// Adiciona eventos de mudança aos campos de status
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('morning-status').addEventListener('change', toggleMorningFields);
+    document.getElementById('afternoon-status').addEventListener('change', toggleAfternoonFields);
+});
 
 // Inicializa a página
 document.addEventListener('DOMContentLoaded', () => {
-    populateEmployeeDropdown();
+    // Funções auxiliares
+    function initializeDropdown() {
+        const employeeSelect = document.getElementById('employee-select');
+        const employeeSelectDaily = document.getElementById('employee-select-daily');
+        const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
+
+        if (employeeSelect) {
+            employeeSelect.innerHTML = '<option value="">Selecione um funcionário</option>';
+            employeeList.forEach(employee => {
+                const option = document.createElement('option');
+                option.value = employee.name;
+                option.textContent = employee.name;
+                employeeSelect.appendChild(option);
+            });
+        }
+
+        if (employeeSelectDaily) {
+            employeeSelectDaily.innerHTML = '<option value="">Selecione um Funcionário</option>';
+            employeeList.forEach((employee, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = employee.name;
+                employeeSelectDaily.appendChild(option);
+            });
+        }
+    }
+
+    function initializeDateField() {
+        const attendanceDateInput = document.getElementById('attendance-date');
+        if (attendanceDateInput) {
+            const today = new Date();
+            const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            attendanceDateInput.value = formattedDate;
+        }
+    }
+
+    function toggleFields(statusElementId, fields) {
+        const status = document.getElementById(statusElementId).value;
+        fields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (status === 'absent') {
+                field.value = '';
+                field.disabled = true;
+            } else {
+                field.disabled = false;
+            }
+        });
+    }
+
+    // Eventos
+    function addEventListeners() {
+        const attendanceForm = document.getElementById('attendance-form');
+        if (attendanceForm) {
+            attendanceForm.addEventListener('submit', handleAttendance);
+        }
+
+        const morningStatus = document.getElementById('morning-status');
+        if (morningStatus) {
+            morningStatus.addEventListener('change', () => toggleFields('morning-status', ['morning-entry', 'morning-exit']));
+        }
+
+        const afternoonStatus = document.getElementById('afternoon-status');
+        if (afternoonStatus) {
+            afternoonStatus.addEventListener('change', () => toggleFields('afternoon-status', ['afternoon-entry', 'afternoon-exit']));
+        }
+
+        const filterButton = document.getElementById('filter-button');
+        if (filterButton) {
+            filterButton.addEventListener('click', filterAttendanceByDate);
+        }
+
+        const backupButton = document.getElementById('backup-data');
+        if (backupButton) {
+            backupButton.addEventListener('click', backupData);
+        }
+
+        const clearButton = document.getElementById('clear-data');
+        if (clearButton) {
+            clearButton.addEventListener('click', clearData);
+        }
+
+        const restoreBackupInput = document.getElementById('restore-backup');
+        if (restoreBackupInput) {
+            restoreBackupInput.addEventListener('change', restoreBackup);
+        }
+
+        const saveReportButton = document.getElementById('save-report-button');
+        if (saveReportButton) {
+            saveReportButton.addEventListener('click', saveFilteredReport);
+        }
+
+        const toggleButtons = document.querySelectorAll('.toggle-table');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetTable = document.getElementById(targetId);
+
+                if (targetTable) {
+                    targetTable.classList.toggle('hidden');
+                }
+            });
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('nav.menu');
+        if (menuToggle && menu) {
+            menuToggle.addEventListener('click', () => {
+                menu.classList.toggle('active');
+            });
+        }
+    }
+
+    // Inicializa o dropdown de funcionários
+    initializeDropdown();
+
+    // Inicializa o campo de data
+    initializeDateField();
+
+    // Carrega os dados iniciais
     loadEmployees();
     loadAttendanceHistory();
     loadEmployeeSummary();
-    document.getElementById('attendance-form').addEventListener('submit', event => {
-        handleAttendance(event);
-        loadEmployeeSummary(); // Atualiza o resumo após registrar o ponto
-    });
-    toggleTimeFields();
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Preencher automaticamente o campo de data com a data atual
-    const attendanceDateInput = document.getElementById('attendance-date');
-    if (attendanceDateInput) {
-        const today = new Date();
-        const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-        attendanceDateInput.value = formattedDate;
-    }
-});
-
-// Adiciona o evento de carregamento da página para preencher o seletor de funcionários
-document.addEventListener('DOMContentLoaded', function() {
-    const employeeSelect = document.getElementById('employee-select');
-    const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
-    // Limpa o conteúdo atual do seletor
-    employeeSelect.innerHTML = '';
-    // Adiciona uma opção padrão
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.textContent = 'Selecione um funcionário';
-    employeeSelect.appendChild(defaultOption);
-    // Adiciona uma opção para cada funcionário
-    employeeList.forEach(employee => {
-        const option = document.createElement('option');
-        option.value = employee.name; // Usa o nome como valor
-        option.textContent = employee.name; // Exibe o nome no seletor
-        employeeSelect.appendChild(option);
-    });
-    // Verifica se há funcionários na lista
-    if (employeeList.length === 0) {
-        console.warn('Nenhum funcionário encontrado no localStorage.');
-    }
-
-    // Adiciona cada funcionário como uma opção no seletor
-    employeeList.forEach(employee => {
-        const option = document.createElement('option');
-        option.value = employee.name; // Usa o nome como valor
-        option.textContent = employee.name; // Exibe o nome no seletor
-        employeeSelect.appendChild(option);
-        // Verifica se o funcionário foi adicionado corretamente
-        
-    });
-});
-
-// Função para calcular a diferença de horas entre dois horários
-function calculateHours(entry, exit) {
-    if (!entry || !exit || entry === 'N/A' || exit === 'N/A') {
-        return 0; // Retorna 0 se os horários forem inválidos
-    }
-
-    const [entryHours, entryMinutes] = entry.split(':').map(Number);
-    const [exitHours, exitMinutes] = exit.split(':').map(Number);
-
-    const entryTime = entryHours + entryMinutes / 60;
-    const exitTime = exitHours + exitMinutes / 60;
-
-    return Math.max(0, exitTime - entryTime); // Garante que o resultado não seja negativo
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const monthSelect = document.getElementById('month-select');
-    const employeeSelect = document.getElementById('employee-select');
-    const filterButton = document.getElementById('filter-button');
-    const hoursResult = document.getElementById('hours-result');
-
-    // Adiciona o evento de clique ao botão de filtro
-    filterButton.addEventListener('click', function () {
-        const selectedMonth = monthSelect.value; // Mês selecionado (ex: "01" para Janeiro)
-        const selectedEmployee = employeeSelect.value; // Nome do funcionário selecionado
-
-        // Obtém a lista de funcionários do localStorage
-        const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
-
-        // Filtra os dados com base no funcionário e no mês selecionados
-        const filteredData = employeeList
-            .filter(employee => employee.name === selectedEmployee) // Filtra pelo funcionário
-            .flatMap(employee => employee.attendance || []) // Obtém o histórico de ponto
-            .filter(record => {
-                if (!record.date) return false; // Ignora registros sem data
-                const recordMonth = record.date.split('-')[1]; // Extrai o mês da data (YYYY-MM-DD)
-                return recordMonth === selectedMonth; // Compara com o mês selecionado
-            });
-
-        // Limpa os resultados anteriores
-        hoursResult.innerHTML = '';
-
-        if (filteredData.length > 0) {
-            // Cria uma tabela para exibir os resultados
-            const resultTable = document.createElement('table');
-            resultTable.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Entrada Manhã</th>
-                        <th>Saída Manhã</th>
-                        <th>Entrada Tarde</th>
-                        <th>Saída Tarde</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${filteredData.map(record => `
-                        <tr>
-                            <td>${record.date || 'N/A'}</td>
-                            <td>${record.morningEntry || 'N/A'}</td>
-                            <td>${record.morningExit || 'N/A'}</td>
-                            <td>${record.afternoonEntry || 'N/A'}</td>
-                            <td>${record.afternoonExit || 'N/A'}</td>
-                            <td>${record.status || 'N/A'}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            `;
-            hoursResult.appendChild(resultTable);
-        } else {
-            // Exibe uma mensagem caso nenhum dado seja encontrado
-            hoursResult.textContent = 'Nenhum registro encontrado para o funcionário e mês selecionados.';
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Outros eventos já existentes...
-
-    // Evento para o botão de backup
-    document.getElementById('backup-data').addEventListener('click', backupData);
-
-    // Evento para o botão de limpar dados
-    document.getElementById('clear-data').addEventListener('click', clearData);
-
-    // Evento para restaurar backup
-    document.getElementById('restore-backup').addEventListener('change', restoreBackup);
-
-    // Evento para o botão de filtrar por data
-    document.getElementById('filter-date-button').addEventListener('click', filterAttendanceByDate);
-
-    // Evento para o botão de salvar relatório
-    document.getElementById('save-report-button').addEventListener('click', openFilteredReport);
-
-    // Evento para o botão de abrir relatório filtrado
-    document.getElementById('save-report-button').addEventListener('click', openFilteredReport);
+    // Adiciona os eventos
+    addEventListeners();
 });
 

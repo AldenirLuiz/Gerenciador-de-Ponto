@@ -4,18 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Staff Time Management</title>
-    <link rel="stylesheet" href="src/css/styles.css">
+    <style>
+        body, h1, h2, h3, p, ul, li, table, th, td, input, select, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Estilo geral */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        label, h1, h2, h3, p, ul, li, table, th, td {
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        h3 {
+            font-size: 8px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+        
+        input, select, button {
+            font-family: inherit;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 200px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+        }
+        .logo {
+            width: 200px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #loginForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        #loginForm label {
+            margin: 2px;
+            display: flex;
+        }
+        
+        #loginForm input {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+        #loginForm button {
+            width: 300px;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #loginForm button:hover {
+            background-color: #0056b3;
+        }
+        #loginForm button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Estilo para a mensagem de erro */
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            display: none; /* Oculta a mensagem por padrão */
+        }
+        
+    </style>
 </head>
 <body>
-    <div class="logoLogin"><img id="logoLogin" src="/src/images/logo-right.png" alt="Left Logo" class="logo"></div>
     <div class="login-container">
-        <h2>Faça Login para Acessar o Sistema de Gerenciamento de Ponto</h2>
+        <h3> *Faça Login para Acessar o Sistema de Gerenciamento de Ponto</h3>
         <form id="loginForm">
             <div class="form-group">
+                <img id="logoLogin" src="/src/images/logo-right.png" alt="Right Logo" class="logo">
+
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
+            
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>

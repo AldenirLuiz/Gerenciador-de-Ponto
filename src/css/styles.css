@@ -5,6 +5,27 @@ body, h1, h2, h3, p, ul, li, table, th, td, input, select, button {
     box-sizing: border-box;
 }
 
+#time-fields {
+    display: flex;
+    flex-direction: column;
+    font-size: smaller;
+    gap: 10px;
+}
+
+#time-fields label {
+    font-size: 12px;
+    font-weight: bold;
+    width: 200px; /* Largura fixa para os rótulos */
+    text-align: right; /* Alinhamento à direita */
+}
+#time-fields input, #time-fields select {
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%; /* Ajusta para ocupar toda a largura disponível */
+}
+
 /* Estilo geral */
 body {
     font-family: Arial, sans-serif;
@@ -14,60 +35,17 @@ body {
     padding: 20px;
 }
 
-.logoLogin {
-    display: block;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    width: 400px;
-    height: auto;
+input, select, button {
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
 }
-#logoLogin {
-    display: block;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    width: 400px;
-    height: auto;
-}
-#loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-}
-#loginForm input {
-    width: 300px;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-}
-#loginForm button {
-    width: 300px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-#loginForm button:hover {
-    background-color: #0056b3;
-}
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+
 /* Estilo do cabeçalho */
 header {
-    background-color: #007bff;
-    color: white;
+    background-color: #8db8e760;
+    color: #333;
+
     padding: 10px 20px;
     text-align: left;
     border-radius: 5px;
@@ -88,7 +66,6 @@ header h1 {
 
 /* Estilo dos logos */
 .logo {
-    align-self: right;
     height: 100px;
     width: auto;
 }
@@ -102,7 +79,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: white;
+
     text-decoration: none;
     font-weight: bold;
 }
@@ -122,12 +99,16 @@ section {
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 section h2 {
     margin-bottom: 15px;
     font-size: 20px;
-    color: #007bff;
+    color: #8db8e760;
+    color: #333;
 }
 
 /* Estilo das tabelas */
@@ -144,8 +125,9 @@ table th, table td {
 }
 
 table th {
-    background-color: #007bff;
-    color: white;
+    background-color: #8db8e760;
+    color: #333;
+
 }
 
 table tbody tr:nth-child(even) {
@@ -162,77 +144,211 @@ table tfoot {
 }
 
 table tfoot td {
-    border-top: 2px solid #007bff;
+    border-top: 2px solid #8db8e760;
+    color: #333;
     padding: 10px;
     text-align: left;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Estilo dos formulários */
 form label {
-    display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-form input, form select, form button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-form button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
 form button:hover {
+    background-color: #8db8e760;
+    color: #333;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.larger-button {
+    margin: 0px auto;
+    padding: 8px 4px;
+    font-size: 16px;
+    background-color: #8db8e760;
+    color: #333;
+
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    width: 80%;
+}
+.larger-button:hover {
     background-color: #0056b3;
+    border-color: #012b58;
 }
 
-#attendance-form {
+.time-entry {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    align-items: center;
+    border: 1px solid #ddd;
 }
 
-#attendance-form label {
+.form-group {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+}  
+
+form label {
+    font-size: 14px;
     font-weight: bold;
+    width: 200px; /* Largura fixa para os rótulos */
+    text-align: right; /* Alinhamento à direita */
+}
+/* Harmonização dos botões e caixas de seleção */
+button, select, input {
+    gap: 10px;
+    border: 1px solid #8db8e760;
+    color: #333;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    max-width: 200px; /* Ajuste para evitar largura total */
+    margin: 5px;
 }
 
-#attendance-form input, #attendance-form select, #attendance-form button {
-    padding: 5px;
+button:hover, select:hover {
+    border-color: #0056b3;
+}
+
+button:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#filter-hours select, #filter-hours button {
+    margin: 5px;
+    padding: 10px;
     font-size: 1rem;
+    width: auto; /* Ajuste para evitar largura total */
+}
+
+#data-management button, #data-management select {
+    width: auto; /* Ajuste para evitar largura total */
+    margin: 5px;
+}
+
+/* Estilo do botão do menu sanduíche */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Estilo do menu */
+nav.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav.menu ul li a {
+    text-decoration: none;
+
+    font-weight: bold;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
     body {
         padding: 10px;
+        margin: 0 auto;
+    }
+
+    .classified-input {
+        font-size: small;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding: 5px;
+        font-size: 12px;
+    }
+    .classified-input label {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .button-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .button-center button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .form-group {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        gap: 1px;
+        border: 1px solid #ddd;
+        padding: 0px;
+        text-size-adjust: 0.5;
+        font-size: 12px;
     }
 
     header {
         text-align: center;
+        padding: 10px;
     }
 
     .header-container {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
 
     header h1 {
         font-size: 18px;
-        margin: 10px 0;
+        margin: 5px 0;
     }
 
     .logo {
-        height: 80px;
+        height: 50px;
         width: auto;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-top: 10px;
     }
 
     nav ul {
@@ -246,16 +362,16 @@ form button:hover {
     }
 
     section {
-        padding: 15px;
+        padding: 10px;
     }
 
     section h2 {
-        font-size: 18px;
+        font-size: 12px;
         text-align: center;
     }
 
     table {
-        font-size: 12px;
+        font-size: 8px;
     }
 
     table th, table td {
@@ -263,16 +379,9 @@ form button:hover {
     }
 
     form input, form select, form button {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    #attendance-form {
-        gap: 5px;
-    }
-
-    #attendance-form label {
-        font-size: 14px;
+        font-size: 12px; /* Reduz o tamanho do texto */
+        padding: 6px; /* Reduz o padding */
+        width: 100%; /* Ajusta para ocupar toda a largura disponível */
     }
 
     #filter-hours {
@@ -282,12 +391,18 @@ form button:hover {
     }
 
     #filter-hours select, #filter-hours button {
-        width: 100%;
-        margin: 5px 0;
+        font-size: 8px; /* Reduz o tamanho do texto */
+        padding: 4px; /* Reduz o padding */
+        width: 80%; /* Ajusta para ocupar toda a largura disponível */
     }
 
     #hours-result table {
         font-size: 12px;
+    }
+
+    #hours-result th, #hours-result td {
+        font-size: 12px; /* Reduz o tamanho do texto nas tabelas */
+        padding: 6px; /* Reduz o padding */
     }
 
     #data-management {
@@ -297,6 +412,74 @@ form button:hover {
     #data-management button, #data-management select {
         width: 100%;
         margin: 5px 0;
+    }
+
+    .time-entry {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .time-entry input, .time-entry select {
+        font-size: 12px; /* Reduz o tamanho do texto */
+        padding: 6px; /* Reduz o padding */
+        width: 100%; /* Ajusta para ocupar toda a largura disponível */
+    }
+
+    .time-entry label {
+        width: auto;
+        text-align: left;
+    }
+
+    .form-group {
+        flex-direction: column; /* Alinha os elementos verticalmente */
+        align-items: flex-start; /* Alinha os elementos à esquerda */
+        gap: 8px; /* Reduz o espaçamento entre os elementos */
+    }
+
+    .form-group label {
+        font-size: 12px; /* Reduz o tamanho do texto dos rótulos */
+    }
+
+    .toggle-container {
+        justify-content: center;
+    }
+
+    .larger-button {
+        font-size: 14px; /* Ajusta o tamanho do texto */
+        padding: 8px; /* Ajusta o padding */
+        width: 100%; /* Ocupa toda a largura */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav.menu {
+        display: none;
+        flex-direction: column;
+        background-color: #8db8e760;
+        color: #333;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    nav.menu.active {
+        display: flex;
+    }
+
+    nav.menu ul {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    nav.menu ul li a {
+        font-size: 16px;
     }
 }
 
@@ -326,3 +509,47 @@ form button:hover {
     background-color: #f1f1f1;
     font-weight: bold;
 }
+
+/* Estilo para o formulário */
+#attendance-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+#attendance-form .form-group {
+    flex: 1 1 calc(50% - 20px); /* Cada grupo ocupa 50% da largura com espaçamento */
+    display: flex;
+    flex-direction: column;
+}
+
+#attendance-form .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#attendance-form .form-group input,
+#attendance-form .form-group select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#attendance-form button {
+    flex: 1 1 100%; /* Botão ocupa 100% da largura */
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#attendance-form button:hover {
+    background-color: #0056b3;
+}
+

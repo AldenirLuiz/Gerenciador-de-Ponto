@@ -16,7 +16,8 @@
             <h1>Gerenciamento de Ponto</h1>
             <img src="images/logo-left.png" alt="Logo à Esquerda" class="logo">
         </div>
-        <nav>
+        <button class="menu-toggle" aria-label="Abrir Menu">&#9776;</button>
+        <nav class="menu">
             <ul>
                 <li><a href="../index.html">Login</a></li>
                 <li><a href="manage-employees.html">Gerenciar Funcionários</a></li>
@@ -26,70 +27,115 @@
     <main>
         <section id="daily-attendance">
             <h2>Ponto Diário</h2>
-            <form id="attendance-form">
-                <label for="attendance-date">Data do Ponto:</label>
-                <input type="date" id="attendance-date">
-                <label for="employee-select-daily">Selecione o Funcionário:</label>
-                <select id="employee-select-daily"></select>
-                <label for="attendance-status">Status:</label>
-                <select id="attendance-status">
-                    <option value="present">PRESENTE</option>
-                    <option value="absent">FALTA</option>
-                </select>
-                <div id="time-fields">
-                    <label for="morning-entry">Entrada Manhã:</label>
-                    <input type="time" id="morning-entry" value="06:30">
-                    <label for="morning-exit">Saída Manhã:</label>
-                    <input type="time" id="morning-exit" value="11:30">
-                    <label for="afternoon-entry">Entrada Tarde:</label>
-                    <input type="time" id="afternoon-entry" value="13:00">
-                    <label for="afternoon-exit">Saída Tarde:</label>
-                    <input type="time" id="afternoon-exit" value="17:00">
-                </div>
-                <button type="submit">REGISTRAR</button>
-            </form>
+            <div class="form-container">
+                <div class="toggle-container">
+                    <form id="attendance-form">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="attendance-date">Data do Ponto:</label>
+                                <input type="date" id="attendance-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="employee-select-daily">Selecione o Funcionário:</label>
+                                <select id="employee-select-daily"></select>
+                            </div>
+                            
+                        </div>
+                        
+                        <div id="time-fields">
+                            <div class="time-entry">
+                                <label for="morning-entry">Entrada Manhã:</label>
+                                <input type="time" id="morning-entry" value="06:30">
+                                <label for="morning-exit">Saída Manhã:</label>
+                                <input type="time" id="morning-exit" value="11:30">
+                                <label for="morning-status">Status Manhã:</label>
+                                <select id="morning-status">
+                                    <option value="present">PRESENTE</option>
+                                    <option value="absent">FALTA</option>
+                                </select>
+                            </div>
+                            <div class="time-entry">
+                                <label for="afternoon-entry">Entrada Tarde:</label>
+                                <input type="time" id="afternoon-entry" value="13:00">
+                                <label for="afternoon-exit">Saída Tarde:</label>
+                                <input type="time" id="afternoon-exit" value="17:00">
+                                <label for="afternoon-status">Status Tarde:</label>
+                                <select id="afternoon-status">
+                                    <option value="present">PRESENTE</option>
+                                    <option value="absent">FALTA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">REGISTRAR</button>
+                        </div>
+                        
+                    </form>
+            </div>
+            
         </section>
         <section id="attendance-history">
             <h2>Histórico de Ponto</h2>
+            
             <label for="filter-date">Filtrar por Data:</label>
-            <input type="date" id="filter-date">
-            <button id="filter-date-button">Filtrar</button>
-            <button id="save-report-button">Salvar Relatório</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>NOME</th>
-                        <th>DATA</th>
-                        <th>ENTRADA MANHÃ</th>
-                        <th>SAÍDA MANHÃ</th>
-                        <th>ENTRADA TARDE</th>
-                        <th>SAÍDA TARDE</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="filtered-attendance"></tbody>
-            </table>
+            <div>
+                <input type="date" id="filter-date">
+                <button id="filter-date-button">Filtrar</button>
+            </div>
+            
+            <div>
+                <div class="toggle-container">
+                    <button class="toggle-table" data-target="filtered-attendance">Esconder/Exibir</button>
+                </div>
+                
+                <table id="attendance-history-table">
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>DATA</th>
+                            <th>ENTRADA MANHÃ</th>
+                            <th>SAÍDA MANHÃ</th>
+                            <th>ENTRADA TARDE</th>
+                            <th>SAÍDA TARDE</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filtered-attendance"></tbody>
+                </table>
+                <div id="report-section">
+                    <button class="larger-button" id="save-report-button">Salvar Relatório</button>
+                </div>
+            </div>
+            
         </section>
         <section id="filter-hours">
             <h2>Filtrar Horas por Mês</h2>
-            <label for="employee-select">Selecione o Funcionário:</label>
-            <select id="employee-select"></select>
-            <label for="month-select">Selecione o Mês:</label>
-            <select id="month-select">
-                <option value="01">Janeiro</option>
-                <option value="02">Fevereiro</option>
-                <option value="03">Março</option>
-                <option value="04">Abril</option>
-                <option value="05">Maio</option>
-                <option value="06">Junho</option>
-                <option value="07">Julho</option>
-                <option value="08">Agosto</option>
-                <option value="09">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-            </select>
-            <button id="filter-button">Filtrar</button>
+            <div class="form-group">
+                <div >
+                    <select id="employee-select"></select>
+                </div>
+                <div class="classified-input">
+                    <label for="month-select">Selecione o Mês:</label>
+                    <select id="month-select">
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Março</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <div class="button-center">
+                    <button  id="filter-button">Filtrar</button>
+                </div>
+                
+            </div>
             <div id="hours-result"></div>
         </section>
         <section id="employee-summary">
@@ -104,9 +150,6 @@
                 </thead>
                 <tbody></tbody>
             </table>
-        </section>
-        <section id="employee-list-section">
-            <h2>Lista de Funcionários</h2>
             <table id="employee-list">
                 <thead>
                     <tr>
@@ -119,6 +162,7 @@
                 <tbody></tbody>
             </table>
         </section>
+        
         <section id="data-management">
             <h2>Gerenciamento de Dados</h2>
             <label for="backup-format">Formato do Backup:</label>
@@ -126,6 +170,10 @@
                 <option value="xlsx">Excel (.xlsx)</option>
                 <option value="csv">CSV (.csv)</option>
             </select>
+            <div>
+                <label for="backup-employee-data">Backup de dados dos Funcionários:</label>
+                <input type="checkbox" id="backup-employee-data" checked>
+            </div>
             <button id="backup-data">Fazer Backup</button>
             <button id="clear-data">Limpar Dados</button>
             <label for="restore-backup" class="restore-label">Restaurar Backup:</label>
