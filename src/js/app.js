@@ -117,6 +117,14 @@ function handleAttendance(event) {
         employee.attendance = [];
     }
 
+    // Verifica se já existe um registro para o mesmo funcionário e data
+    const duplicateEntry = employee.attendance.some(record => record.date === attendanceDate);
+    if (duplicateEntry) {
+        alert('Já existe um registro de ponto para este funcionário nesta data.');
+        return;
+    }
+
+    // Adiciona o registro de ponto
     employee.attendance.push({
         date: attendanceDate,
         morningEntry: morningEntry.value || 'N/A',
@@ -198,6 +206,11 @@ function loadEmployeeSummary() {
     const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
     const tbody = document.querySelector('#employee-summary tbody');
 
+    if (!tbody) {
+        console.error('Elemento #employee-summary tbody não encontrado no DOM.');
+        return;
+    }
+
     // Limpa o conteúdo atual do tbody
     tbody.innerHTML = '';
 
@@ -208,13 +221,17 @@ function loadEmployeeSummary() {
 
         if (employee.attendance && employee.attendance.length > 0) {
             employee.attendance.forEach(record => {
-                if (record.status === 'present') {
+                // Calcula as horas trabalhadas pela manhã
+                if (record.morningEntry !== 'N/A' && record.morningExit !== 'N/A') {
+                    totalHours += calculateHours(record.morningEntry, record.morningExit);
+                }
+                // Calcula as horas trabalhadas à tarde
+                if (record.afternoonEntry !== 'N/A' && record.afternoonExit !== 'N/A') {
+                    totalHours += calculateHours(record.afternoonEntry, record.afternoonExit);
+                }
+                // Incrementa os dias presentes se o status for "present"
+                if (record.status === 'present' || record.morningStatus === 'present' || record.afternoonStatus === 'present') {
                     totalDaysPresent++;
-
-                    // Calcula as horas trabalhadas (se os horários forem válidos)
-                    const morningHours = calculateHours(record.morningEntry, record.morningExit);
-                    const afternoonHours = calculateHours(record.afternoonEntry, record.afternoonExit);
-                    totalHours += morningHours + afternoonHours;
                 }
             });
         }
@@ -223,8 +240,8 @@ function loadEmployeeSummary() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${employee.name}</td>
-            <td>${totalHours.toFixed(2)} hours</td>
-            <td>${totalDaysPresent} days</td>
+            <td>${totalHours.toFixed(2)} horas</td>
+            <td>${totalDaysPresent} dias</td>
         `;
 
         tbody.appendChild(row);
@@ -721,4 +738,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Adiciona os eventos
     addEventListeners();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Botão para filtrar por data
+    const filterDateButton = document.getElementById('filter-date-button');
+    if (filterDateButton) {
+        filterDateButton.addEventListener('click', filterAttendanceByDate);
+    }
+
+    // Botão para filtrar horas por mês
+    const filterMonthButton = document.getElementById('filter-month-button');
+    if (filterMonthButton) {
+        filterMonthButton.addEventListener('click', filterHoursByMonth);
+    }
+});
+
+function filterHoursByMonth() {
+    const selectedMonth = document.getElementById('month-select').value; // Obtém o mês selecionado
+    const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
+    const hoursResult = document.getElementById('hours-result');
+
+    // Limpa os resultados anteriores
+    hoursResult.innerHTML = '';
+
+    if (!selectedMonth) {
+        alert('Por favor, selecione um mês para filtrar.');
+        return;
+    }
+
+    // Filtra os registros de ponto com base no mês selecionado
+    const filteredData = employeeList.flatMap(employee => {
+        return (employee.attendance || []).filter(record => record.date.startsWith(`2025-${selectedMonth}`)).map(record => ({
+            name: employee.name,
+            ...record
+        }));
+    });
+
+    // Exibe os resultados filtrados
+    if (filteredData.length > 0) {
+        filteredData.forEach(record => {
+            const row = document.createElement('div');
+            row.textContent = `${record.name} - ${record.date}`;
+            hoursResult.appendChild(row);
+        });
+    } else {
+        hoursResult.textContent = 'Nenhum registro encontrado para o mês selecionado.';
+    }
+}
 
