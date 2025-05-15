@@ -1,0 +1,21 @@
+Gerenciador-de-Ponto/
+├── src/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   ├── app.js             # Lógica comum e inicialização
+│   │   ├── attendance.js      # Lógica para registro de ponto diário
+│   │   ├── employee.js        # Lógica para gerenciamento de funcionários
+│   │   ├── history.js         # Lógica para histórico de ponto
+│   │   ├── filter.js          # Lógica para filtros e relatórios
+│   │   └── data.js            # Lógica para gerenciamento de dados (backup/restore)
+│   ├── index.html           # Página principal (login ou dashboard)
+│   ├── attendance.html      # Página de registro de ponto diário
+│   ├── manage-employees.html  # Página de gerenciamento de funcionários
+│   ├── attendance-history.html # Página de histórico de ponto
+│   ├── filter-reports.html  # Página de filtros e relatórios
+│   └── data-management.html # Página de gerenciamento de dados
+├── images/
+│   ├── logo-left.png
+│   └── logo-right.png
+└── README.md

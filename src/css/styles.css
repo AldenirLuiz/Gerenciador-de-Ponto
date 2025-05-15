@@ -5,27 +5,6 @@ body, h1, h2, h3, p, ul, li, table, th, td, input, select, button {
     box-sizing: border-box;
 }
 
-#time-fields {
-    display: flex;
-    flex-direction: column;
-    font-size: smaller;
-    gap: 10px;
-}
-
-#time-fields label {
-    font-size: 12px;
-    font-weight: bold;
-    width: 200px; /* Largura fixa para os rótulos */
-    text-align: right; /* Alinhamento à direita */
-}
-#time-fields input, #time-fields select {
-    font-size: 14px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 100%; /* Ajusta para ocupar toda a largura disponível */
-}
-
 /* Estilo geral */
 body {
     font-family: Arial, sans-serif;
@@ -79,7 +58,7 @@ nav ul {
 }
 
 nav ul li a {
-
+    color: #333;
     text-decoration: none;
     font-weight: bold;
 }
@@ -102,6 +81,7 @@ section {
     gap: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 section h2 {
@@ -150,12 +130,6 @@ table tfoot td {
     text-align: left;
 }
 
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
 
 /* Estilo dos formulários */
 form label {
@@ -191,16 +165,9 @@ form button:hover {
     border-color: #012b58;
 }
 
-.time-entry {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    border: 1px solid #ddd;
-}
-
 .form-group {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 5px;
 }  
 
@@ -275,6 +242,119 @@ nav.menu ul li a {
     text-decoration: none;
 
     font-weight: bold;
+}
+
+/* Estilos para a seção de registro de ponto diário */
+#daily-attendance {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#daily-attendance h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+#daily-attendance .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+#daily-attendance .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+#daily-attendance label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+#daily-attendance input[type="date"],
+#daily-attendance input[type="time"],
+#daily-attendance select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+#daily-attendance .time-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    border: solid 1px #ddd;
+}
+
+/* Estilo para botões primários */
+.primary-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para a seção de histórico de ponto */
+#attendance-history {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Estilos para o container dos filtros */
+.filters-container {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os filtros */
+    align-items: center; /* Alinha verticalmente os itens */
+    margin-bottom: 20px; /* Espaçamento abaixo dos filtros */
+}
+
+/* Estilos para os grupos de filtros */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+}
+
+/* Estilos para o botão de filtro */
+#filter-date-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#filter-date-button:hover {
+    background-color: #0056b3;
 }
 
 /* Responsividade */
@@ -415,9 +495,8 @@ nav.menu ul li a {
     }
 
     .time-entry {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+        display: flex;
+        flex-direction: row;
     }
 
     .time-entry input, .time-entry select {
@@ -510,6 +589,13 @@ nav.menu ul li a {
     font-weight: bold;
 }
 
+.form-group-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
 /* Estilo para o formulário */
 #attendance-form {
     display: flex;
@@ -553,3 +639,12 @@ nav.menu ul li a {
     background-color: #0056b3;
 }
 
+.time-entry {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}

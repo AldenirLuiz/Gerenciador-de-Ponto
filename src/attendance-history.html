@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Ponto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="images/logo-right.png" alt="Logo à Direita" class="logo">
+            <h1>Histórico de Ponto</h1>
+            <img src="images/logo-left.png" alt="Logo à Esquerda" class="logo">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Login</a></li>
+                <li><a href="attendance.html">Registro de Ponto Diário</a></li>
+                <li><a href="manage-employees.html">Gerenciar Funcionários</a></li>
+                <li><a href="filter-reports.html">Filtros e Relatórios</a></li>
+                <li><a href="data-management.html">Gerenciamento de Dados</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="attendance-history">
+            <h2>Histórico de Ponto</h2>
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-date">Filtrar por Data:</label>
+                    <div>
+                        <input type="date" id="filter-date">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-month">Filtrar por Mês:</label>
+                    <div>
+                        <select id="filter-month">
+                            <option value="">Todos os Meses</option>
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Março</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="filter-date-button">Filtrar</button>
+            </div>
+            <div>
+                <div class="toggle-container">
+                    <button class="toggle-table" data-target="filtered-attendance">Esconder/Exibir</button>
+                </div>
+                <table id="attendance-history-table">
+                    <thead>
+                        <tr>
+                            <th>NOME</th>
+                            <th>DATA</th>
+                            <th>ENTRADA MANHÃ</th>
+                            <th>SAÍDA MANHÃ</th>
+                            <th>ENTRADA TARDE</th>
+                            <th>SAÍDA TARDE</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filtered-attendance"></tbody>
+                </table>
+                <div id="report-section">
+                    <button class="larger-button" id="save-report-button">Salvar Relatório</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Gerenciamento de Ponto</p>
+    </footer>
+    <script src="js/app.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>

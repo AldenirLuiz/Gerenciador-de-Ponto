@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Dados</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="images/logo-right.png" alt="Logo à Direita" class="logo">
+            <h1>Gerenciamento de Dados</h1>
+            <img src="images/logo-left.png" alt="Logo à Esquerda" class="logo">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Login</a></li>
+                <li><a href="attendance.html">Registro de Ponto Diário</a></li>
+                <li><a href="manage-employees.html">Gerenciar Funcionários</a></li>
+                <li><a href="attendance-history.html">Histórico de Ponto</a></li>
+                <li><a href="filter-reports.html">Filtros e Relatórios</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="data-management">
+            <h2>Gerenciamento de Dados</h2>
+            <div>
+                <button id="backup-data" class="primary-button">Backup dos Dados</button>
+                <input type="file" id="restore-data" accept=".json" style="display: none;">
+                <button id="restore-button" class="primary-button">Restaurar Dados</button>
+                <button id="clear-data" class="primary-button">Limpar Dados</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Gerenciamento de Ponto</p>
+    </footer>
+    <script src="js/app.js"></script>
+    <script src="js/data.js"></script>
+</body>
+</html>
