@@ -16,7 +16,6 @@
         </div>
         <nav class="menu">
             <ul>
-                <li><a href="index.html">Login</a></li>
                 <li><a href="manage-employees.html">Gerenciar Funcionários</a></li>
                 <li><a href="attendance-history.html">Histórico de Ponto</a></li>
                 <li><a href="filter-reports.html">Filtros e Relatórios</a></li>
@@ -28,13 +27,11 @@
         <section id="daily-attendance">
             <h2>Registro de Ponto Diário</h2>
             <form id="attendance-form">
-                <div class="form-grid">
+                <div class="form-group">
                     <div class="form-group-container">
-                        <div class="form-group">
+                        <div >
                             <label for="attendance-date">Data:</label>
                             <input type="date" id="attendance-date">
-                        </div>
-                        <div class="form-group">
                             <label for="employee-select-daily">Funcionário:</label>
                             <select id="employee-select-daily"></select>
                         </div>
@@ -71,7 +68,6 @@
                         </div>
                         <button type="submit" class="primary-button">Registrar Ponto</button>
                     </div>
-                    
                 </div>
             </form>
         </section>

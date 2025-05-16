@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <td>${record.afternoonEntry}</td>
                                 <td>${record.afternoonExit}</td>
                                 <td>${morningStatus} / ${afternoonStatus}</td>
+                                <td>
+                                    <button class="edit-button" data-employee-index="${employeeIndex}" data-record-index="${recordIndex}">Editar</button>
+                                    <button class="remove-button" data-employee-index="${employeeIndex}" data-record-index="${recordIndex}">Remover</button>
+                                </td>
                             </tr>
                         `;
                     }
