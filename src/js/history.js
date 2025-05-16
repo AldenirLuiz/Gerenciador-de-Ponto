@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const filterDateInput = document.getElementById('filter-date');
     const filterMonthSelect = document.getElementById('filter-month');
+    const saveReportButton = document.getElementById('save-report-button');
 
     // Função para carregar o histórico de ponto
     function loadAttendanceHistory(filterDate = null, filterMonth = null) {
@@ -15,30 +16,50 @@ document.addEventListener('DOMContentLoaded', () => {
         // Limpa o conteúdo atual do tbody
         tbody.innerHTML = '';
 
+        let tableHTML = ''; // Variável para armazenar o HTML da tabela
+
         // Itera sobre cada funcionário e exibe o histórico de ponto
-        employeeList.forEach(employee => {
+        employeeList.forEach((employee, employeeIndex) => {
             if (employee.attendance && employee.attendance.length > 0) {
-                employee.attendance.forEach(record => {
+                employee.attendance.forEach((record, recordIndex) => {
                     const recordMonth = record.date.substring(5, 7); // Extrai o mês da data (YYYY-MM-DD)
 
                     // Verifica se a data do registro corresponde à data do filtro e ao mês do filtro
                     if ((!filterDate || record.date === filterDate) &&
                         (!filterMonth || recordMonth === filterMonth)) {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${employee.name}</td>
-                            <td>${record.date}</td>
-                            <td>${record.morningEntry}</td>
-                            <td>${record.morningExit}</td>
-                            <td>${record.afternoonEntry}</td>
-                            <td>${record.afternoonExit}</td>
-                            <td>${record.morningStatus} / ${record.afternoonStatus}</td>
+                        const morningStatus = record.morningStatus === 'present' ? 'presente' : 'ausente';
+                        const afternoonStatus = record.afternoonStatus === 'present' ? 'presente' : 'ausente';
+
+                        tableHTML += `
+                            <tr>
+                                <td>${employee.name}</td>
+                                <td>${record.date}</td>
+                                <td>${record.morningEntry}</td>
+                                <td>${record.morningExit}</td>
+                                <td>${record.afternoonEntry}</td>
+                                <td>${record.afternoonExit}</td>
+                                <td>${morningStatus} / ${afternoonStatus}</td>
+                            </tr>
                         `;
-                        tbody.appendChild(row);
                     }
                 });
             }
         });
+
+        tbody.innerHTML = tableHTML; // Define o HTML da tabela no tbody
+
+        // Adiciona os event listeners para os botões de editar e remover
+        const editButtons = document.querySelectorAll('.edit-button');
+        editButtons.forEach(button => {
+            button.addEventListener('click', handleEdit);
+        });
+
+        const removeButtons = document.querySelectorAll('.remove-button');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', handleRemove);
+        });
+
+        return tableHTML; // Retorna o HTML da tabela
     }
 
     // Função para lidar com o filtro por data
@@ -57,7 +78,61 @@ document.addEventListener('DOMContentLoaded', () => {
             filterDate = null;
         }
 
-        loadAttendanceHistory(filterDate, filterMonth);
+        const tableHTML = loadAttendanceHistory(filterDate, filterMonth); // Carrega o histórico de ponto e obtém o HTML da tabela
+
+        // Salva o HTML da tabela no localStorage
+        localStorage.setItem('reportTableHTML', tableHTML);
+    }
+
+    // Função para lidar com a edição de uma entrada
+    function handleEdit(event) {
+        const employeeIndex = event.target.dataset.employeeIndex;
+        const recordIndex = event.target.dataset.recordIndex;
+
+        // Pede a senha para confirmar a edição
+        const password = prompt('Digite a senha para editar esta entrada:');
+
+        if (password === 'lancer007') {
+            // Implementar a lógica para editar a entrada
+            alert(`Editar entrada do funcionário ${employeeIndex}, registro ${recordIndex}`);
+        } else {
+            alert('Senha incorreta. A edição não foi permitida.');
+        }
+    }
+
+    // Função para lidar com a remoção de uma entrada
+    function handleRemove(event) {
+        const employeeIndex = event.target.dataset.employeeIndex;
+        const recordIndex = event.target.dataset.recordIndex;
+
+        // Pede a senha para confirmar a remoção
+        const password = prompt('Digite a senha para remover esta entrada:');
+
+        if (password === 'lancer007') {
+            // Implementar a lógica para remover a entrada
+            const employeeList = JSON.parse(localStorage.getItem('employees')) || [];
+            const employee = employeeList[employeeIndex];
+
+            if (employee && employee.attendance && employee.attendance.length > recordIndex) {
+                employee.attendance.splice(recordIndex, 1); // Remove o registro do array
+
+                localStorage.setItem('employees', JSON.stringify(employeeList)); // Atualiza o localStorage
+
+                loadAttendanceHistory(); // Recarrega o histórico de ponto
+            } else {
+                alert('Registro não encontrado.');
+            }
+        } else {
+            alert('Senha incorreta. A remoção não foi permitida.');
+        }
+    }
+
+    // Função para salvar o relatório
+    function saveReport() {
+        handleFilter(); // Executa o filtro para obter o HTML da tabela
+
+        // Abre uma nova página com o relatório
+        window.open('report.html', '_blank');
     }
 
     // Adiciona o evento de clique ao botão "Filtrar"
@@ -78,6 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
             filterDateInput.value = '';
         }
     });
+
+    // Adiciona o evento de clique ao botão "Salvar Relatório"
+    if (saveReportButton) {
+        saveReportButton.addEventListener('click', saveReport);
+    }
 
     // Carrega o histórico de ponto ao carregar a página
     loadAttendanceHistory();

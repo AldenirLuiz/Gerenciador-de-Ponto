@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Histórico de Ponto</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        @media print {
+            body {
+                font-size: 10px; /* Reduz a fonte do corpo do documento */
+            }
+            header {
+                padding: 5px 0; /* Reduz o preenchimento do cabeçalho */
+                margin-bottom: 5px; /* Reduz a margem inferior do cabeçalho */
+            }
+            header h1 {
+                font-size: 1.2em; /* Reduz a fonte do título do cabeçalho */
+            }
+            table {
+                width: 100%; /* Garante que a tabela ocupe toda a largura */
+                border-collapse: collapse; /* Remove espaçamento entre as células */
+            }
+            thead {
+                font-size: 0.8em; /* Reduz a fonte do cabeçalho da tabela */
+            }
+            th, td {
+                font-size: 9px; /* Reduz a fonte das células da tabela */
+                padding: 2px; /* Reduz o preenchimento das células */
+                text-align: left; /* Alinha o texto à esquerda */
+            }
+            /* Oculta o botão de imprimir na impressão */
+            #print-button {
+                display: none;
+            }
+            tr th{
+                height: 10px; /* Define a altura das linhas como automática */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Relatório de Histórico de Ponto</h1>
+    </header>
+    <main>
+        <table id="report-table">
+            <thead>
+                <tr>
+                    <th>NOME</th>
+                    <th>DATA</th>
+                    <th>ENTRADA MANHÃ</th>
+                    <th>SAÍDA MANHÃ</th>
+                    <th>ENTRADA TARDE</th>
+                    <th>SAÍDA TARDE</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="report-table-body"></tbody>
+        </table>
+        <button id="print-button" class="primary-button">Imprimir Relatório</button>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reportTableBody = document.getElementById('report-table-body');
+            const printButton = document.getElementById('print-button');
+
+            // Obtém o HTML da tabela do localStorage
+            const tableHTML = localStorage.getItem('reportTableHTML');
+
+            // Define o HTML da tabela no tbody
+            reportTableBody.innerHTML = tableHTML;
+
+            // Adiciona o evento de clique ao botão "Imprimir Relatório"
+            printButton.addEventListener('click', () => {
+                window.print(); // Imprime a página
+            });
+        });
+    </script>
+</body>
+</html>
